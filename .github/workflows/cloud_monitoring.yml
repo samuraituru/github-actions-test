@@ -41,5 +41,6 @@ jobs:
 
       - name: "deploy"
         run: |-
-          gcloud alpha functions list
-      # gcloud alpha monitoring policies create --policy-from-file="rising-cpu-usage.json"
+          gcloud alpha monitoring policies create --policy-from-file=""${{ secrets.ALERT_POLICY_JSON }}""
+      # gcloud alpha functions list
+      # gcloud alpha monitoring policies create --policy-from-file="alert-policy.json"
