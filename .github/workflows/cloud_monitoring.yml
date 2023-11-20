@@ -44,7 +44,7 @@ jobs:
 
       - name: "deploy"
         run: |
-          gcloud alpha monitoring policies create --policy-from-file="${{ secrets.ALERT_POLICY_JSON }}"
+          gcloud alpha monitoring policies create
       # echo "${{ secrets.ALERT_POLICY_JSON }}" >> alert-policy.json
       # gcloud alpha functions list
       # gcloud alpha monitoring policies create --policy-from-file="alert-policy.json"
