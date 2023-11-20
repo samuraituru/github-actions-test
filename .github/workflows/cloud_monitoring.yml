@@ -33,12 +33,11 @@ jobs:
         uses: "google-github-actions/setup-gcloud@v1"
 
       # Now you can run gcloud commands authenticated as the impersonated service account.
-      # - id: "gcloud"
-      # name: "gcloud"
-      # run: |-
+      - id: "gcloud"
+        name: "gcloud"
+        run: |-
+          gcloud secrets versions access "latest" --secret "my-secret"
       #  gcloud secrets versions access
-      # gcloud secrets versions access "latest" --secret "my-secret"
-
       - name: "deploy"
         run: |
           echo "${{ secrets.ALERT_POLICY_JSON }}" >> alert-policy.json
