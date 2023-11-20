@@ -1,0 +1,20 @@
+# .github/workflows/ci.yml
+name: Flutter CI
+
+on:
+  push:
+    paths:
+      - "firebase/cloud_monitoring/**"
+    branches:
+      - develop
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      # チェックアウト
+      - name: Checkout
+        uses: actions/checkout@v3
