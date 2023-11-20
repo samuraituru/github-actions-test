@@ -4,7 +4,7 @@ name: Flutter CI
 on:
   push:
     paths:
-      - "firebase/cloud_monitoring/**"
+      - "gcp/cloud_monitoring/**"
     branches:
       - develop
       - main
