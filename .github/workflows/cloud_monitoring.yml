@@ -1,0 +1,45 @@
+name: CD - monitoring
+
+# 起動条件
+on:
+  # firebase/functions ディレクトリ配下に変更あり && develop or main ブランチに push された時
+  push:
+    paths:
+      - "gcp/cloud_monitoring/**"
+    branches:
+      - develop
+      - main
+  # GitHubActions のページから手動で実行できるようにする(https://docs.github.com/ja/actions/managing-workflow-runs/manually-running-a-workflow)
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      # チェックアウト
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # Authenticate to Google Cloud
+      - id: "auth"
+        name: "Authenticate to Google Cloud"
+        uses: "google-github-actions/auth@v1"
+        with:
+          credentials_json: "${{ secrets.GOOGLE_CREDENTIALS_DEV }}"
+
+      # Set the project ID for this GitHub Actions runner
+      - name: "Set up Cloud SDK"
+        uses: "google-github-actions/setup-gcloud@v1"
+
+      # Now you can run gcloud commands authenticated as the impersonated service account.
+      - id: "gcloud"
+        name: "gcloud"
+        run: |-
+          gcloud secrets versions access
+        # gcloud secrets versions access "latest" --secret "my-secret"
+
+      - name: "deploy"
+        run: |-
+          gcloud alpha functions list
+      # gcloud alpha monitoring policies create --policy-from-file="rising-cpu-usage.json"
