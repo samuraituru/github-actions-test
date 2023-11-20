@@ -38,6 +38,9 @@ jobs:
       # run: |-
       #  gcloud secrets versions access
       # gcloud secrets versions access "latest" --secret "my-secret"
+      - name: "pre install"
+        run: |
+          gcloud components install alpha
 
       - name: "deploy"
         run: |
