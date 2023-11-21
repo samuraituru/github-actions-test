@@ -45,8 +45,8 @@ jobs:
       - name: "deploy"
         run: |
           for i in 1 2 3
-          echo "Mendax Current number: $i"
           do
+            echo "Mendax Current number: $i"
           done
         # gcloud alpha monitoring policies create --policy-from-file="gcp/cloud_monitoring/alert-policy.json" --display-name="test $i"
         #gcloud alpha monitoring policies create \
