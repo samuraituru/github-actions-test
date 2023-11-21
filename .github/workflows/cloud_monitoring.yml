@@ -47,7 +47,7 @@ jobs:
         run: |
           gcloud functions list >> functions_list_1.txt
           message_out=`cat functions_list_1.txt`
-          cat functions_list.txt | awk '{print $1}' | sed -e '1d' > functions_list_2.txt
+          cat functions_list_1.txt | awk '{print $1}' | sed -e '1d' > functions_list_2.txt
           cat functions_list_2.txt
 
       #- name: "deploy"
