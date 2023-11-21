@@ -44,12 +44,26 @@ jobs:
 
       - name: "deploy"
         run: |
+          for i in 1 2 3
+          do
+          echo "Mendax Current number: $i"
+          done
           gcloud alpha monitoring policies create \
-          --policy='{"name": "projects/chat-17813/alertPolicies/001","displayName": "test alert","documentation": {"content": "ここにアラートポリシーの説明を記載する\n関数名を記載する","mimeType": "text/markdown"},"userLabels": {},"conditions": [{"name": "projects/chat-17813/alertPolicies/001/conditions/001","displayName": "Log match condition","conditionMatchedLog": {"filter": "(resource.type=\"cloud_function\" resource.labels.function_name=(\"handleStripeAccountWebhook\") resource.labels.region=\"asia-northeast1\") AND severity>=ERROR"}}],"alertStrategy": {"notificationRateLimit": {"period": "300s"},"autoClose": "604800s"},"combiner": "OR","enabled": true,"notificationChannels": ["projects/chat-17813/notificationChannels/1742812268927437863"],"creationRecord": {"mutateTime": "2023-10-31T18:27:58.121259341Z","mutatedBy": "samuraituru.dev@gmail.com"},"mutationRecord": {"mutateTime": "2023-10-31T18:55:32.529746344Z","mutatedBy": "samuraituru.dev@gmail.com"}}'
-        # do
-        # echo "Mendax Current number: $i"
-        # done
-      # for i in 1 2 3
+          --policy=
+          '{
+            "name": "projects/chat-17813/alertPolicies/001",
+            "displayName": "test alert",
+            "documentation": {"content": "ここにアラートポリシーの説明を記載する\n関数名を記載する","mimeType": "text/markdown"},
+            "userLabels": {},
+            "conditions": [{"name": "projects/chat-17813/alertPolicies/001/conditions/001",
+            "displayName": "Log match condition",
+            "conditionMatchedLog": {"filter": "(resource.type=\"cloud_function\" resource.labels.function_name=(\"handleStripeAccountWebhook\") resource.labels.region=\"asia-northeast1\") AND severity>=ERROR"}}],
+            "alertStrategy": {"notificationRateLimit": {"period": "300s"},"autoClose": "604800s"},
+            "combiner": "OR",
+            "enabled": true,"notificationChannels": ["projects/chat-17813/notificationChannels/1742812268927437863"],
+            "creationRecord": {"mutateTime": "2023-10-31T18:27:58.121259341Z","mutatedBy": "samuraituru.dev@gmail.com"},
+            "mutationRecord": {"mutateTime": "2023-10-31T18:55:32.529746344Z","mutatedBy": "samuraituru.dev@gmail.com"}
+          }'
       # echo "${{ secrets.ALERT_POLICY_JSON }}" >> alert-policy.json
       # gcloud alpha functions list
       # gcloud alpha monitoring policies create --policy-from-file="alert-policy.json"
