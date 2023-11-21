@@ -48,9 +48,10 @@ jobs:
           gcloud functions list >> functions_list_1.txt
           message_out=`cat functions_list_1.txt`
           LIST=(`cat functions_list_1.txt | awk '{print $1}' | sed -e '1d'`)
-          for v in "${LIST[@]}"
+          for i in "${LIST[@]}"
           do
-            echo "$v"
+            echo "Mendax Current number: $i"
+            gcloud alpha monitoring policies create --policy-from-file="gcp/cloud_monitoring/alert-policy.json" --display-name="test $i"
           done
 
       #- name: "deploy"
