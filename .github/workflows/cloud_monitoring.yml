@@ -44,11 +44,11 @@ jobs:
 
       - name: "deploy"
         run: |
-          for i in 1 2 3
-          do
-          echo "Mendax Current number: $i"
-          gcloud alpha monitoring policies create --display-name="$i" --policy-from-file="gcp/cloud_monitoring/alert-policy.json"
-          done
+          gcloud alpha monitoring policies create --display-name="alert $i" --combiner="OR" --documentation="content=test" --condition-filter="[name="projects/chat-17813/alertPolicies/001/conditions/001",displayName="Log match condition"]"
+        # do
+        # echo "Mendax Current number: $i"
+        # done
+      # for i in 1 2 3
       # echo "${{ secrets.ALERT_POLICY_JSON }}" >> alert-policy.json
       # gcloud alpha functions list
       # gcloud alpha monitoring policies create --policy-from-file="alert-policy.json"
