@@ -49,6 +49,10 @@ jobs:
           message_out=`cat functions_list_1.txt`
           cat functions_list_1.txt | awk '{print $1}' | sed -e '1d' > functions_list_2.txt
           cat functions_list_2.txt
+          for v in "${functions_list_2[@]}"
+          do
+            echo "$v"
+          done
 
       #- name: "deploy"
       #  run: |
