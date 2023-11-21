@@ -44,7 +44,7 @@ jobs:
 
       - name: "deploy"
         run: |
-          gcloud alpha monitoring policies create --display-name="alert $i" --combiner="OR" --documentation="content=test" --condition-filter="[name="projects/chat-17813/alertPolicies/001/conditions/001",displayName="Log match condition"]"
+          gcloud alpha monitoring policies create --display-name="alert $i" --combiner="OR" --documentation="content=test" --condition-filter="[name="projects/chat-17813/alertPolicies/001/conditions/001",displayName="Log match condition"]" --policy="projects/chat-17813/alertPolicies/001"
         # do
         # echo "Mendax Current number: $i"
         # done
