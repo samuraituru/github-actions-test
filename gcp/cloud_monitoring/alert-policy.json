@@ -1,5 +1,5 @@
 {
-  "name": "projects/chat/alertPolicies/001",
+  "name": "projects/chat-17813/alertPolicies/001",
   "displayName": "test alert",
   "documentation": {
     "content": "ここにアラートポリシーの説明を記載する\n関数名を記載する",
@@ -8,7 +8,7 @@
   "userLabels": {},
   "conditions": [
     {
-      "name": "projects/chat/alertPolicies/001/conditions/001",
+      "name": "projects/chat-17813/alertPolicies/001/conditions/001",
       "displayName": "Log match condition",
       "conditionMatchedLog": {
         "filter": "(resource.type=\"cloud_function\" resource.labels.function_name=(\"handleStripeAccountWebhook\") resource.labels.region=\"asia-northeast1\") AND severity>=ERROR"
@@ -24,7 +24,7 @@
   "combiner": "OR",
   "enabled": true,
   "notificationChannels": [
-    "projects/chat/notificationChannels/1742812268927437863"
+    "projects/chat-17813/notificationChannels/1742812268927437863"
   ],
   "creationRecord": {
     "mutateTime": "2023-10-31T18:27:58.121259341Z",
