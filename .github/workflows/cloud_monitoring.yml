@@ -45,7 +45,10 @@ jobs:
       # 開発環境の functions 関数を一覧取得
       - name: "functions list"
         run: |
-          gcloud functions list
+          gcloud functions list >> functions_list.txt
+          message_out=`cat functions_list.txt`
+          echo $message_out
+          cat functions_list.txt | awk '{print $1}'
 
       #- name: "deploy"
       #  run: |
