@@ -1,5 +1,4 @@
 {
-  "name": "projects/chat-17813/alertPolicies/002",
   "displayName": "test alert",
   "documentation": {
     "content": "ここにアラートポリシーの説明を記載する\n関数名を記載する",
@@ -8,7 +7,6 @@
   "userLabels": {},
   "conditions": [
     {
-      "name": "projects/chat-17813/alertPolicies/002/conditions/002",
       "displayName": "Log match condition",
       "conditionMatchedLog": {
         "filter": "(resource.type=\"cloud_function\" resource.labels.function_name=(\"handleStripeAccountWebhook\") resource.labels.region=\"asia-northeast1\") AND severity>=ERROR"
