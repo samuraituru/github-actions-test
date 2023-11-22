@@ -46,7 +46,10 @@ jobs:
           for i in "${LIST[@]}"
           do
             echo "Current number: $i"
-            gcloud alpha monitoring policies create --policy-from-file="gcp/cloud_monitoring/alert-policy.json" --display-name="test $i" --condition-from-file="gcp/cloud_monitoring/condition.json" --if='absent'
+            gcloud alpha monitoring policies create \
+            --policy-from-file="gcp/cloud_monitoring/alert-policy.json" \
+            --display-name="test $i" \
+            gcloud alpha monitoring policies conditions create 
             done
 
       # --condition-filter="resource.type=\"cloud_function\" resource.labels.function_name=(\"$i\") resource.labels.region=\"asia-northeast1\") AND severity>=ERROR" \
