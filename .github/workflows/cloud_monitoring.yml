@@ -49,7 +49,6 @@ jobs:
             gcloud alpha monitoring policies create \
             --policy-from-file="gcp/cloud_monitoring/alert-policy.json" \
             --display-name="test $i" \
-            --condition-display-name="Log match condition" \
             --if='absent'
             done
 
