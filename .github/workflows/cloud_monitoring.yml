@@ -45,10 +45,16 @@ jobs:
           LIST=(`cat functions_list_1.txt | awk '{print $1}' | sed -e '1d'`)
           for i in "${LIST[@]}"
           do
-            echo "Mendax Current number: $i"
-            gcloud alpha monitoring policies create --policy-from-file="gcp/cloud_monitoring/alert-policy.json" --display-name="test $i" --condition-display-name="Log match condition" --condition="{"filter": resource.type=\"cloud_function\" resource.labels.function_name=(\"$i\") resource.labels.region=\"asia-northeast1\") AND severity>=ERROR"}" --if='absent' --duration="1h"
-          done
+            echo "Current number: $i"
+            gcloud alpha monitoring policies create \
+            --policy-from-file="gcp/cloud_monitoring/alert-policy.json" \
+            --display-name="test $i" \
+            --condition-display-name="Log match condition" \
+            --if='absent' \
+            --duration="0s"
+            done
 
+      # --condition-filter="resource.type=\"cloud_function\" resource.labels.function_name=(\"$i\") resource.labels.region=\"asia-northeast1\") AND severity>=ERROR" \
       #- name: "deploy"
       #  run: |
       #    for i in 1 2 3
