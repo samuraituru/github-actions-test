@@ -43,7 +43,7 @@ jobs:
           gcloud functions list >> functions_list_1.txt
           message_out=`cat functions_list_1.txt`
           LIST=(`cat functions_list_1.txt | awk '{print $1}' | sed -e '1d'`)
-          gcloud alpha monitoring policies conditions create "projects/chat-17813/alertPolicies/2750614127906598164"
+          gcloud alpha monitoring policies conditions create "projects/chat-17813/alertPolicies/2750614127906598164" --condition-from-file="gcp/cloud_monitoring/condition.json"
         # echo "Current number: $i"
         # for i in "${LIST[@]}"
         # do
