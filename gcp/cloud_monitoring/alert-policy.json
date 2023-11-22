@@ -15,13 +15,5 @@
   "enabled": true,
   "notificationChannels": [
     "projects/chat-17813/notificationChannels/1742812268927437863"
-  ],
-  "creationRecord": {
-    "mutateTime": "2023-10-31T18:27:58.121259341Z",
-    "mutatedBy": "samuraituru.dev@gmail.com"
-  },
-  "mutationRecord": {
-    "mutateTime": "2023-10-31T18:55:32.529746344Z",
-    "mutatedBy": "samuraituru.dev@gmail.com"
-  }
+  ]
 }
