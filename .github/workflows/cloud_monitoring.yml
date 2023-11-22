@@ -33,11 +33,6 @@ jobs:
         uses: "google-github-actions/setup-gcloud@v1"
 
       # Now you can run gcloud commands authenticated as the impersonated service account.
-      # - id: "gcloud"
-      # name: "gcloud"
-      # run: |-
-      #  gcloud secrets versions access
-      # gcloud secrets versions access "latest" --secret "my-secret"
       - name: "pre install"
         run: |
           gcloud components install alpha
@@ -51,7 +46,7 @@ jobs:
           for i in "${LIST[@]}"
           do
             echo "Mendax Current number: $i"
-            gcloud alpha monitoring policies create --policy-from-file="gcp/cloud_monitoring/alert-policy.json" --display-name="test $i" --condition-display-name="Log match condition" --condition-filter="log_id("cloudfunctions.googleapis.com/cloud-functions/$i") AND severity>=ERROR" --if='absent' --duration="1h"
+            gcloud alpha monitoring policies create --policy-from-file="gcp/cloud_monitoring/alert-policy.json" --display-name="test $i" --condition-display-name="Log match condition" --condition="{"filter": resource.type=\"cloud_function\" resource.labels.function_name=(\"$i\") resource.labels.region=\"asia-northeast1\") AND severity>=ERROR"}" --if='absent' --duration="1h"
           done
 
       #- name: "deploy"
