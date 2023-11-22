@@ -51,7 +51,7 @@ jobs:
           for i in "${LIST[@]}"
           do
             echo "Mendax Current number: $i"
-            gcloud alpha monitoring policies create --policy-from-file="gcp/cloud_monitoring/alert-policy.json" --display-name="test $i" --condition-display-name="Log match condition" --condition-filter="log_id("cloudfunctions.googleapis.com/cloud-functions/$i") AND severity>=ERROR" --if='absent'
+            gcloud alpha monitoring policies create --policy-from-file="gcp/cloud_monitoring/alert-policy.json" --display-name="test $i" --condition-display-name="Log match condition" --condition-filter="log_id("cloudfunctions.googleapis.com/cloud-functions/$i") AND severity>=ERROR" --if='absent' --duration="1h"
           done
 
       #- name: "deploy"
