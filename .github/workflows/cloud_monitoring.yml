@@ -51,7 +51,6 @@ jobs:
             --display-name="test $i" \
             --condition-display-name="Log match condition" \
             --if='absent' \
-            --duration="0s"
             done
 
       # --condition-filter="resource.type=\"cloud_function\" resource.labels.function_name=(\"$i\") resource.labels.region=\"asia-northeast1\") AND severity>=ERROR" \
