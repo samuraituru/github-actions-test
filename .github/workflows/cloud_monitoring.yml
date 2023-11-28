@@ -48,7 +48,7 @@ jobs:
             echo "Current number: $i"
             gcloud alpha monitoring policies create \
             --display-name="test $i" \
-            --condition_matched_log="filter=(resource.type=\"cloud_function\" resource.labels.function_name=(\"$i\") resource.labels.region=\"asia-northeast1\") AND severity>=ERROR"
+            --condition_matched_log="(resource.type=\"cloud_function\" resource.labels.function_name=(\"$i\") resource.labels.region=\"asia-northeast1\") AND severity>=ERROR"
             done
         # --if='absent' \
         #  gcloud alpha monitoring policies conditions update "projects/chat-17813/alertPolicies/2750614127906598164": --policy="" --display-name="DISPLAY_NAME"
