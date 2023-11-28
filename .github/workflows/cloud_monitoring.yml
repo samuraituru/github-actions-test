@@ -51,7 +51,7 @@ jobs:
             --flatten="alert_policy.conditions[].conditionMatchedLog" \
             --condition-filter="(resource.type=\"cloud_function\" resource.labels.function_name=(\"$i\") resource.labels.region=\"asia-northeast1\") AND severity>=ERROR" \
             --if="absent" \
-            --duration="0s" \
+            --duration="3s" \
             --combiner="OR" \
             --condition-display-name="Log match condition$i" 
             done
