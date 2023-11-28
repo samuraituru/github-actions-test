@@ -48,7 +48,7 @@ jobs:
             echo "Current number: $i"
             gcloud alpha monitoring policies create \
             --display-name="test $i" \
-            --flatten="alert_policy.conditions[].conditionMatchedLog[]" \
+            --flatten="alert_policy.conditions[].conditionMatchedLog" \
             --condition-filter="(resource.type=\"cloud_function\" resource.labels.function_name=(\"$i\") resource.labels.region=\"asia-northeast1\") AND severity>=ERROR" \
             --duration="1h" \
             --combiner="OR" \
