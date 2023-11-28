@@ -43,7 +43,16 @@ jobs:
           gcloud functions list >> functions_list_1.txt
           message_out=`cat functions_list_1.txt`
           LIST=(`cat functions_list_1.txt | awk '{print $1}' | sed -e '1d'`)
-          gcloud alpha monitoring policies conditions update "projects/chat-17813/alertPolicies/2750614127906598164" --display-name="DISPLAY_NAME"
+          for i in "${LIST[@]}"
+          do
+            echo "Current number: $i"
+            gcloud alpha monitoring policies create \
+            --policy-from-file="gcp/cloud_monitoring/alert-policy.json" \
+            --display-name="test $i"
+            --condition-filter="resource.type=\"cloud_function\" resource.labels.function_name=(\"$i\") resource.labels.region=\"asia-northeast1\") AND severity>=ERROR" \
+            --condition-display-name="Log match condition$i" 
+          done
+        #  gcloud alpha monitoring policies conditions update "projects/chat-17813/alertPolicies/2750614127906598164": --policy="" --display-name="DISPLAY_NAME"
         # echo "Current number: $i"
         # for i in "${LIST[@]}"
         # do
