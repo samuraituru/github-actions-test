@@ -43,11 +43,9 @@ jobs:
         with:
           result-encoding: string // 文字列で受け取れる
           script: |
-            const time = Date.now() / 1000
             const body = [
               {
                 name: 'ci.ciyaml.elapsed_sec.sec',
-                time: time,
               }
             ]
             return JSON.stringify(body)
