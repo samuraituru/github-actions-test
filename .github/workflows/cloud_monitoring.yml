@@ -48,7 +48,7 @@ jobs:
                 name: 'ci.ciyaml.elapsed_sec.sec',
               }
             ]
-            return JSON.stringify(body)
+            return JSON.stringify($body)
       # 開発環境の functions 関数を一覧取得
       - name: "functions list"
         run: |
