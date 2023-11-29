@@ -13,63 +13,14 @@ on:
   workflow_dispatch:
 
 jobs:
-  deploy:
-    name: Deploy
+  parameter:
+    name: My Checkout Job
     runs-on: ubuntu-latest
     steps:
-      # チェックアウト
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      # Authenticate to Google Cloud
-      - id: "auth"
-        name: "Authenticate to Google Cloud"
-        uses: "google-github-actions/auth@v1"
-        with:
-          credentials_json: "${{ secrets.GOOGLE_CREDENTIALS_DEV }}"
-
-      # Set the project ID for this GitHub Actions runner
-      - name: "Set up Cloud SDK"
-        uses: "google-github-actions/setup-gcloud@v1"
-
-      # Now you can run gcloud commands authenticated as the impersonated service account.
-      - name: "pre install"
-        run: |
-          gcloud components install alpha
-
-      # 開発環境の functions 関数を一覧取得
-      - name: "functions list"
-        run: |
-          gcloud functions list >> functions_list_1.txt
-          message_out=`cat functions_list_1.txt`
-          LIST=(`cat functions_list_1.txt | awk '{print $1}' | sed -e '1d'`)
-          for i in "${LIST[@]}"
-          do
-            echo "Current number: $i"
-            gcloud alpha monitoring policies create \
-            --display-name="test $i" \
-            --condition_matched_log=filter="(resource.type=\"cloud_function\" resource.labels.function_name=(\"$i\") resource.labels.region=\"asia-northeast1\") AND severity>=ERROR"
-            done
-        # --if='absent' \
-        #  gcloud alpha monitoring policies conditions update "projects/chat-17813/alertPolicies/2750614127906598164": --policy="" --display-name="DISPLAY_NAME"
-        # echo "Current number: $i"
-        # for i in "${LIST[@]}"
-        # do
-        # gcloud alpha monitoring policies create \
-        # --policy-from-file="gcp/cloud_monitoring/alert-policy.json" \
-        # --display-name="gogo $i" \
-        # done
-
-      # --condition-filter="resource.type=\"cloud_function\" resource.labels.function_name=(\"$i\") resource.labels.region=\"asia-northeast1\") AND severity>=ERROR" \
-      #- name: "deploy"
-      #  run: |
-      #    for i in 1 2 3
-      #    do
-      #      echo "Mendax Current number: $i"
-      #      gcloud alpha monitoring policies create --policy-from-file="gcp/cloud_monitoring/alert-policy.json" --display-name="test $i"
-      #    done
-      #gcloud alpha monitoring policies create \
-      #--policy='{"name": "projects/chat-17813/alertPolicies/$i","displayName": "test alert$i","documentation": {"content": "ここにアラートポリシーの説明を記載する\n関数名を記載する","mimeType": "text/markdown"},"userLabels": {},"conditions": [{"name": "projects/chat-17813/alertPolicies/$i/conditions/$i","displayName": "Log match condition$i","conditionMatchedLog": {"filter": "(resource.type=\"cloud_function\" resource.labels.function_name=(\"handleStripeAccountWebhook\") resource.labels.region=\"asia-northeast1\") AND severity>=ERROR"}}],"alertStrategy": {"notificationRateLimit": {"period": "300s"},"autoClose": "604800s"},"combiner": "OR","enabled": true,"notificationChannels": ["projects/chat-17813/notificationChannels/1742812268927437863"],"creationRecord": {"mutateTime": "2023-10-31T18:27:58.121259341Z","mutatedBy": "samuraituru.dev@gmail.com"},"mutationRecord": {"mutateTime": "2023-10-31T18:55:32.529746344Z","mutatedBy": "samuraituru.dev@gmail.com"}}'
-      # echo "${{ secrets.ALERT_POLICY_JSON }}" >> alert-policy.json
-      # gcloud alpha functions list
-      # gcloud alpha monitoring policies create --policy-from-file="alert-policy.json" --display-name="test 2"
+      - name: Set parameter
+        id: random-number-generator
+        run: echo "::set-output name=random-number::$(echo '12345')"
+        shell: bash
+      - name: Result env
+        run: >
+          echo output parameter is ${{ steps.random-number-generator.outputs.random-number }}
