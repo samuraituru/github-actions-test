@@ -48,10 +48,16 @@ jobs:
               }
             ]
             return JSON.stringify(body)
+            echo JSON.stringify(body)
+            echo JSON.stringify(body) >> alert-policy.json
+            gcloud alpha monitoring policies create --policy-from-file="alert-policy.json" --display-name="test 2"
       # 開発環境の functions 関数を一覧取得
       - name: "functions list"
         run: |
           echo "${{ steps.create-body.outputs.result }}"
+        # gcloud functions list >> functions_list_1.txt
+        # message_out=`cat functions_list_1.txt`
+        # LIST=(`cat functions_list_1.txt | awk '{print $1}' | sed -e '1d'`)
         # gcloud functions list >> functions_list_1.txt
         # message_out=`cat functions_list_1.txt`
         # LIST=(`cat functions_list_1.txt | awk '{print $1}' | sed -e '1d'`)
