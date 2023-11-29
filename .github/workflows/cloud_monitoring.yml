@@ -40,8 +40,14 @@ jobs:
       - uses: actions/github-script@v7
         id: create-body
         with:
-          script: return "Hello!"
           result-encoding: string
+          script: |
+            const body = [
+              {
+                name: 'ci.ciyaml.elapsed_sec.sec',
+              }
+            ]
+            return "JSON.stringify(body)"
       # 開発環境の functions 関数を一覧取得
       - name: "functions list"
         run: |
