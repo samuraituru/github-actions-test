@@ -44,11 +44,11 @@ jobs:
           script: |
             const body = [
               {
-                name: 'ci.ciyaml.elapsed_sec.sec',
+                name: 'test-name',
               }
             ]
-            echo JSON.stringify(body)
-            echo JSON.stringify(body) >> alert-policy.json
+            echo body
+            echo body >> alert-policy.json
             gcloud alpha monitoring policies create --policy-from-file="alert-policy.json" --display-name="test 2"
       # 開発環境の functions 関数を一覧取得
       - name: "functions list"
