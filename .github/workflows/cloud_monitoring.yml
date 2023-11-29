@@ -37,8 +37,7 @@ jobs:
         run: |
           gcloud components install alpha
 
-      - name: "Json setting"
-        uses: actions/github-script@v6
+      - uses: actions/github-script@v6
         id: create-body
         with:
           result-encoding: string // 文字列で受け取れる
@@ -48,7 +47,7 @@ jobs:
                 name: 'ci.ciyaml.elapsed_sec.sec',
               }
             ]
-            return JSON.stringify($body)
+            return JSON.stringify(body)
       # 開発環境の functions 関数を一覧取得
       - name: "functions list"
         run: |
