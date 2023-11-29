@@ -40,12 +40,12 @@ jobs:
       - uses: actions/github-script@v7
         id: create-body
         with:
-          result-encoding: string // 文字列で受け取れる
           script: return "Hello!"
+          result-encoding: string
       # 開発環境の functions 関数を一覧取得
       - name: "functions list"
         run: |
-          echo ${{ steps.create-body.outputs.result }}
+          echo "${{ steps.create-body.outputs.result }}"
         # gcloud functions list >> functions_list_1.txt
         # message_out=`cat functions_list_1.txt`
         # LIST=(`cat functions_list_1.txt | awk '{print $1}' | sed -e '1d'`)
