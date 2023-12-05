@@ -41,7 +41,7 @@ jobs:
       - name: "Delete monitoring policy"
         run: |
           gcloud alpha monitoring policies list >> functions_list.txt
-          echo "functions_list.txt"
+          cat "functions_list.txt"
         # POLICY_LIST=(`gcloud alpha monitoring policies list | awk '{print $1}' | sed -e '1d'`)
         # for policyName in "${POLICY_LIST[@]}"
         # do
