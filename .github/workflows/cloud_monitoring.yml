@@ -37,46 +37,18 @@ jobs:
         run: |
           gcloud components install alpha
 
-      - uses: actions/github-script@v7
-        id: create-body
-        with:
-          result-encoding: string
-          script: |
-            const body = [
-              {
-                name: 'test-name',
-              }
-            ]
-            echo body
-            echo body >> alert-policy.json
-            gcloud alpha monitoring policies create --policy-from-file="alert-policy.json" --display-name="test 2"
       # 開発環境の functions 関数を一覧取得
       - name: "functions list"
         run: |
-          echo "${{ steps.create-body.outputs.result }}"
-        # gcloud functions list >> functions_list_1.txt
-        # message_out=`cat functions_list_1.txt`
-        # LIST=(`cat functions_list_1.txt | awk '{print $1}' | sed -e '1d'`)
-        # gcloud functions list >> functions_list_1.txt
-        # message_out=`cat functions_list_1.txt`
-        # LIST=(`cat functions_list_1.txt | awk '{print $1}' | sed -e '1d'`)
-        # for i in "${LIST[@]}"
-        # do
-        #   echo "Current number: $i"
-        #   gcloud alpha monitoring policies create \
-        #   gcloud alpha monitoring policies conditions create
-        #   --display-name="test $i" \
-        #   --condition_matched_log=filter="(resource.type=\"cloud_function\" resource.labels.function_name=(\"$i\") resource.labels.region=\"asia-northeast1\") AND severity>=ERROR"
-        #   done
-        # --if='absent' \
-        #  gcloud alpha monitoring policies conditions update "projects/chat-17813/alertPolicies/2750614127906598164": --policy="" --display-name="DISPLAY_NAME"
-        # echo "Current number: $i"
-        # for i in "${LIST[@]}"
-        # do
-        # gcloud alpha monitoring policies create \
-        # --policy-from-file="gcp/cloud_monitoring/alert-policy.json" \
-        # --display-name="gogo $i" \
-        # done
+          gcloud functions list >> functions_list_1.txt
+          message_out=`cat functions_list_1.txt`
+          LIST=(`cat functions_list_1.txt | awk '{print $1}' | sed -e '1d'`)
+          for i in "${LIST[@]}"
+          do
+            echo "Current number: $i"
+            gcloud alpha monitoring policies create \
+            --policy='{"displayName": '\'"$i"\'',"documentation": {"content": "ここにアラートポリシーの説明を記載する\n関数名を記載する","mimeType": "text/markdown"},"conditions": [{"displayName": "Log match condition","conditionMatchedLog": {"filter": "(resource.type=\"cloud_function\" resource.labels.function_name=(\"handleStripeAccountWebhook\") resource.labels.region=\"asia-northeast1\") AND severity>=ERROR"}}],"alertStrategy": {"notificationRateLimit": {"period": "300s"},"autoClose": "604800s"},"combiner": "OR","enabled": true,"notificationChannels": ["projects/chat-17813/notificationChannels/1742812268927437863"]}'
+            done
 
       # --condition-filter="resource.type=\"cloud_function\" resource.labels.function_name=(\"$i\") resource.labels.region=\"asia-northeast1\") AND severity>=ERROR" \
       #- name: "deploy"
