@@ -48,6 +48,7 @@ jobs:
             gcloud alpha monitoring policies create \
             --policy='{"displayName": '\'"$functionName"\'',"documentation": {"content": '\'"$functionName"\'',"mimeType": "text/markdown"},"conditions": [{"displayName": "Log match condition","conditionMatchedLog": {"filter": "(resource.type=\"cloud_function\" resource.labels.function_name=(\"'\'"$functionName"\''\") resource.labels.region=\"asia-northeast1\") AND severity>=ERROR"}}],"alertStrategy": {"notificationRateLimit": {"period": "300s"},"autoClose": "604800s"},"combiner": "OR","enabled": true,"notificationChannels": ["projects/chat-17813/notificationChannels/1742812268927437863"]}'
             done
+            
 
       # --condition-filter="resource.type=\"cloud_function\" resource.labels.function_name=(\"$i\") resource.labels.region=\"asia-northeast1\") AND severity>=ERROR" \
       #- name: "deploy"
