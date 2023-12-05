@@ -40,14 +40,13 @@ jobs:
       # 開発環境の functions 関数を一覧取得
       - name: "functions list"
         run: |
-          gcloud functions list >> functions_list_1.txt
-          message_out=`cat functions_list_1.txt`
-          LIST=(`cat functions_list_1.txt | awk '{print $1}' | sed -e '1d'`)
-          for i in "${LIST[@]}"
+          gcloud functions list >> functions_list.txt
+          FUNCTIONS_LIST=(`cat functions_list.txt | awk '{print $1}' | sed -e '1d'`)
+          for functionName in "${FUNCTIONS_LIST[@]}"
           do
-            echo "Current number: $i"
+            echo "Current function: $functionName"
             gcloud alpha monitoring policies create \
-            --policy='{"displayName": '\'"$i"\'',"documentation": {"content": "ここにアラートポリシーの説明を記載する\n関数名を記載する","mimeType": "text/markdown"},"conditions": [{"displayName": "Log match condition","conditionMatchedLog": {"filter": "(resource.type=\"cloud_function\" resource.labels.function_name=(\"handleStripeAccountWebhook\") resource.labels.region=\"asia-northeast1\") AND severity>=ERROR"}}],"alertStrategy": {"notificationRateLimit": {"period": "300s"},"autoClose": "604800s"},"combiner": "OR","enabled": true,"notificationChannels": ["projects/chat-17813/notificationChannels/1742812268927437863"]}'
+            --policy='{"displayName": '\'"$functionName"\'',"documentation": {"content": '\'"$functionName"\'',"mimeType": "text/markdown"},"conditions": [{"displayName": "Log match condition","conditionMatchedLog": {"filter": "(resource.type=\"cloud_function\" resource.labels.function_name=(\"'\'"$functionName"\''\") resource.labels.region=\"asia-northeast1\") AND severity>=ERROR"}}],"alertStrategy": {"notificationRateLimit": {"period": "300s"},"autoClose": "604800s"},"combiner": "OR","enabled": true,"notificationChannels": ["projects/chat-17813/notificationChannels/1742812268927437863"]}'
             done
 
       # --condition-filter="resource.type=\"cloud_function\" resource.labels.function_name=(\"$i\") resource.labels.region=\"asia-northeast1\") AND severity>=ERROR" \
