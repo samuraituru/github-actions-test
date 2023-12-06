@@ -44,7 +44,7 @@ jobs:
           for policyIds in "${DELETE_POLICY_IDS[@]}"
           do
             echo "Current policy: $policyIds"
-            gcloud alpha monitoring policies delete projects/chat-17813/alertPolicies/$policyIds
+            gcloud alpha monitoring policies delete projects/chat-17813/alertPolicies/$policyIds --quiet || echo "Y"
           done
 
         # gcloud alpha monitoring policies list >> functions_list.txt
