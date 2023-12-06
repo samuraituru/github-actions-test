@@ -43,7 +43,7 @@ jobs:
           DELETE_POLICY_IDS=(`gcloud alpha monitoring policies list --uri | awk '{print $1}' | awk -F "/" '{ print $NF }'`)
           for policyIds in "${DELETE_POLICY_IDS[@]}"
           do
-            echo "Current policy: $policyIds" 
+            echo "Current policy: $policyIds"
             gcloud alpha monitoring policies delete projects/chat-17813/alertPolicies/$policyIds --quiet || echo "Y"
           done
 
