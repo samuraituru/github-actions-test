@@ -40,7 +40,7 @@ jobs:
       # 既にあるポリシーを削除
       - name: "Delete monitoring policy"
         run: |
-          gcloud alpha monitoring policies delete projects/chat-17813/alertPolicies/[0-9]{19}
+          gcloud alpha monitoring policies delete projects/chat-17813/alertPolicies/\d{19}
         # gcloud alpha monitoring policies list >> functions_list.txt
         # cat "functions_list.txt"
         # POLICY_LIST=(`gcloud alpha monitoring policies list | awk '{print $1}' | sed -e '1d'`)
